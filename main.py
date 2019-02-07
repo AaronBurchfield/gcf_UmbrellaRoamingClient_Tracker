@@ -23,9 +23,7 @@ TRACKS = [
 
 def get_track_version(track):
     manifest_url = '/'.join([BASEURL, track, 'manifest.json'])
-    print(manifest_url)
     response = requests.get(manifest_url)
-    print(response.json())
     data = response.json()
 
     version = data.get('nextVersion')
@@ -47,7 +45,7 @@ def get_track_versions():
     return versions
 
 
-def main(request):
+def main(request=None):
     data = get_track_versions()
 
     template = env.get_template('page.html')
