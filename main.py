@@ -25,14 +25,16 @@ def get_track_version(track):
     manifest_url = '/'.join([BASEURL, track, 'manifest.json'])
     response = requests.get(manifest_url)
     data = response.json()
-
+    headers = response.headers
+    updated = headers.get('Last-Modified', 'Unknown')
     version = data.get('nextVersion')
     filename = data.get('downloadFilename')
     download_url = '/'.join([BASEURL, track, filename])
 
     return {
         'version': version,
-        'url': download_url
+        'url': download_url,
+        'updated': updated
     }
 
 
